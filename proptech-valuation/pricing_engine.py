@@ -2,14 +2,47 @@ import numpy as np
 
 
 def comparable_sales(df, postcode):
+    """
+    Find comparable sales based on postcode.
+    
+    Priority:
+    1. Exact postcode
+    2. Postcode district (first part, e.g. SW3)
+    3. First 3 characters (fallback)
+    """
 
-    area = postcode.split(" ")[0]
+    postcode = postcode.upper().strip()
 
-    comps = df[df["postcode"].str.startswith(area)]
+    # ----------------
+    # 1 Exact match
+    # ----------------
+    exact = df[df["postcode"] == postcode]
 
-    comps = comps.sort_values("date", ascending=False)
+    if not exact.empty:
+        return exact
 
-    return comps.head(50)
+    # ----------------
+    # 2 District match (SW3)
+    # ----------------
+    district = postcode.split(" ")[0]
+    district_matches = df[df["postcode"].str.startswith(district)]
+
+    if not district_matches.empty:
+        return district_matches
+
+    # ----------------
+    # 3 First 3 characters fallback
+    # ----------------
+    prefix3 = postcode[:3]
+    prefix_matches = df[df["postcode"].str.startswith(prefix3)]
+
+    if not prefix_matches.empty:
+        return prefix_matches
+
+    # ----------------
+    # 4 Last fallback: return entire dataset
+    # ----------------
+    return df
 
 
 def price_per_sqft(df, fallback=350):
