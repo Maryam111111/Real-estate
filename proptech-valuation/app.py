@@ -54,6 +54,8 @@ with col2:
         value=1,
         step=1
     )
+garden = st.checkbox("Garden")
+detached = st.checkbox("Detached")
 
 # ----------------------------
 # Estimate Property Value
