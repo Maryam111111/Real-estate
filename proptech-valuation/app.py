@@ -17,10 +17,9 @@ from pricing_engine import (
 # ----------------------------
 st.set_page_config(page_title="Quant Property Valuation", layout="centered")
 
-st.title("🏠 Quant Property Valuation Engine")
+st.title("🏠 Property Valuation Engine")
 st.markdown("""
-Hedonic Pricing + Comparable Sales + Geospatial Factors
-*Estimates property value based on UK Land Registry data, postcode, and property features.*
+Estimates property value based on UK Land Registry data, postcode, and property features.
 """)
 
 # ----------------------------
