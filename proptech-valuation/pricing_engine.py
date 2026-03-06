@@ -12,14 +12,21 @@ def comparable_sales(df, postcode):
     return comps.head(50)
 
 
-def price_per_sqft(df):
+def price_per_sqft(df, fallback=350):
+    """
+    Compute average price per square foot.
+    If no data is available, use a fallback estimate.
+    """
+    if df.empty:
+        return fallback
 
-    avg_price = df["price"].mean()
+    df = df.copy()
 
-    avg_size = 900
+    # Assuming average house size 900 sqft if not available
+    avg_area = 900
 
-    return avg_price / avg_size
-
+    # Calculate mean price per sqft
+    return df["price"].mean() / avg_area
 
 def baseline_price(price_sqft, area):
 
