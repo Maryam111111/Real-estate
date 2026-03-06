@@ -28,13 +28,32 @@ Estimates property value based on UK Land Registry data, postcode, and property 
 postcode = st.text_input("Enter UK Postcode (e.g., SW1A 1AA)")
 
 col1, col2 = st.columns(2)
+
 with col1:
-    area = st.slider("Floor Area (sqft)", 400, 4000, 900)
-    bedrooms = st.slider("Bedrooms", 1, 6, 2)
+    area = st.number_input(
+        "Floor Area (sqft)",
+        min_value=200,
+        max_value=10000,
+        value=900,
+        step=50
+    )
+
+    bedrooms = st.number_input(
+        "Bedrooms",
+        min_value=1,
+        max_value=10,
+        value=2,
+        step=1
+    )
+
 with col2:
-    bathrooms = st.slider("Bathrooms", 1, 4, 1)
-    garden = st.checkbox("Garden")
-    detached = st.checkbox("Detached")
+    bathrooms = st.number_input(
+        "Bathrooms",
+        min_value=1,
+        max_value=6,
+        value=1,
+        step=1
+    )
 
 # ----------------------------
 # Estimate Property Value
